@@ -57,14 +57,6 @@ body {
   gap: 20px;
 }
 
-.flag--Big {
-  margin: 0;
-  width: 40px;
-  height: 40px;
-  background-size: cover;
-  background-repeat: none;
-}
-
 .country-info p {
   margin-right: 8px;
   font-size: 18px;
@@ -79,4 +71,18 @@ body {
 span.country--Big {
   font-weight: 700;
   font-size: 32px;
+}
+
+span.flag--Big {
+  display: inline;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-repeat: none;
+}
+
+.title {
+  display: flex;
+  align-content: center;
 }

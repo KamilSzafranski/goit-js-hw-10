@@ -57,7 +57,7 @@ const renderInfo = data => {
 
   const markup = data
     .map(element => {
-      return `<p><span  class="flag--Big" style="background-image:url('${element.flags.svg}')"></span> <span class="country--Big">${element.name}</span></p>
+      return `<p class="title"><span  class="flag--Big" style="background-image:url('${element.flags.svg}')"></span> <span class="country--Big">${element.name}</span></p>
   <p>Capital:<span>${element.capital}</span></p>
   <p>Population:<span>${element.population}</span></p>
   <p>Languages:<span>${languages}</span></p>`;
