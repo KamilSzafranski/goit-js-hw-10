@@ -149,4 +149,4 @@ const deb = debounce(event => {
 input.addEventListener("input", deb);
 changeBorderList();
 modal.addEventListener("click", modalClick);
-document.addEventListener("keydown", modalKeydown);
+window.addEventListener("keydown", modalKeydown);
