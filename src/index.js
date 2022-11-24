@@ -75,7 +75,7 @@ const modalClick = () => {
 
 const modalKeydown = event => {
   const isHidden = modal.classList.contains("hidden");
-  if ((event.target = modal && !isHidden && event.code === "Escape")) {
+  if ((event.currentTarget = modal && !isHidden && event.code === "Escape")) {
     input.disabled = "false";
     modal.classList.toggle("hidden");
     return;
@@ -149,4 +149,4 @@ const deb = debounce(event => {
 input.addEventListener("input", deb);
 changeBorderList();
 modal.addEventListener("click", modalClick);
-modal.addEventListener("keydown", modalKeydown);
+document.addEventListener("keydown", modalKeydown);
