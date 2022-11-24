@@ -68,11 +68,17 @@ const clearInfo = () => {
   modal.firstElementChild.innerHTML = "";
 };
 
-const modalClick = () => modal.classList.toggle("hidden");
+const modalClick = () => {
+  input.disabled = "false";
+  modal.classList.toggle("hidden");
+};
+
 const modalKeydown = event => {
   const isHidden = modal.classList.contains("hidden");
   if ((event.target = modal && !isHidden && event.code === "Escape")) {
-    return modal.classList.toggle("hidden");
+    input.disabled = "false";
+    modal.classList.toggle("hidden");
+    return;
   }
   return;
 };
@@ -95,6 +101,7 @@ const renderList = data => {
 const renderInfo = data => {
   clearInfo();
   clearList();
+  input.disabled = "true";
   const languages = data[0].languages
     .map(element => {
       return element.name;
