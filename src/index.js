@@ -69,15 +69,15 @@ const clearInfo = () => {
 };
 
 const modalClick = () => {
-  input.disabled = "false";
   modal.classList.toggle("hidden");
+  input.disabled = false;
 };
 
 const modalKeydown = event => {
   const isHidden = modal.classList.contains("hidden");
-  if ((event.currentTarget = modal && !isHidden && event.code === "Escape")) {
-    input.disabled = "false";
+  if (!isHidden && event.code === "Escape") {
     modal.classList.toggle("hidden");
+    input.disabled = false;
     return;
   }
   return;
@@ -86,6 +86,7 @@ const modalKeydown = event => {
 const renderList = data => {
   clearList();
   clearInfo();
+
   const markup = data
     .map(element => {
       return `<li class="country__item"><span  class="flag" style="background-image:url('${element.flags.svg}')"></span><span class="country">${element.name}</span></li>`;
@@ -101,13 +102,12 @@ const renderList = data => {
 const renderInfo = data => {
   clearInfo();
   clearList();
-  input.disabled = "true";
   const languages = data[0].languages
     .map(element => {
       return element.name;
     })
     .join(", ");
-
+  input.disabled = true;
   const markup = data
     .map(element => {
       return `<p class="title"><span  class="flag--Big" style="background-image:url('${element.flags.svg}')"></span> <span class="country--Big">${element.name}</span></p>
