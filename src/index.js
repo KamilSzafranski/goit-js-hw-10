@@ -67,10 +67,13 @@ const clearList = () => {
 const clearInfo = () => {
   modal.firstElementChild.innerHTML = "";
 };
-
+const cleatInput = () => {
+  input.value = "";
+};
 const modalClick = () => {
   modal.classList.toggle("hidden");
   input.disabled = false;
+  cleatInput();
 };
 
 const modalKeydown = event => {
@@ -78,6 +81,7 @@ const modalKeydown = event => {
   if (!isHidden && event.code === "Escape") {
     modal.classList.toggle("hidden");
     input.disabled = false;
+    cleatInput();
     return;
   }
   return;
