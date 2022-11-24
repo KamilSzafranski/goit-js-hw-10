@@ -2,33 +2,79 @@ import "./css/styles.css";
 import { fetchCountries } from "./fetchCountries";
 import debounce from "lodash.debounce";
 import Notiflix from "notiflix";
+import confetti from "canvas-confetti";
 
 const DEBOUNCE_DELAY = 300;
 
 const input = document.querySelector("input");
 const list = document.querySelector("ul.country-list");
 const info = document.querySelector("div.country-info");
+const modal = document.querySelector(".modal");
 
+const fireConfetti = (particleRatio, opts) => {
+  const count = 200;
+  const defaults = {
+    origin: { y: 0.7 },
+  };
+
+  return confetti({
+    ...defaults,
+    ...opts,
+    particleCount: Math.floor(count * particleRatio),
+  });
+};
+
+const startConfetti = () => {
+  fireConfetti(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+  fireConfetti(0.2, {
+    spread: 60,
+  });
+  fireConfetti(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8,
+  });
+  fireConfetti(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2,
+  });
+  fireConfetti(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
+};
 
 const changeBorderList = () => {
   input.addEventListener("blur", event => {
     list.style.border = "1px solid #212121";
     list.style.borderTop = "none";
-  })
-    input.addEventListener("focus", event => {
-      list.style.border = "2px solid mediumseagreen";
-      list.style.borderTop = "none";
-    });
-  
-
-}
+  });
+  input.addEventListener("focus", event => {
+    list.style.border = "2px solid mediumseagreen";
+    list.style.borderTop = "none";
+  });
+};
 const clearList = () => {
   list.innerHTML = "";
   list.style.transform = "translateY(-500%)";
 };
 
 const clearInfo = () => {
-  info.innerHTML = "";
+  modal.firstElementChild.innerHTML = "";
+};
+
+const modalClick = () => modal.classList.toggle("hidden");
+const modalKeydown = event => {
+  const isHidden = modal.classList.contains("hidden");
+  if ((event.target = modal && !isHidden && event.code === "Escape")) {
+    return modal.classList.toggle("hidden");
+  }
+  return;
 };
 
 const renderList = data => {
@@ -53,7 +99,7 @@ const renderInfo = data => {
     .map(element => {
       return element.name;
     })
-    .join(",");
+    .join(", ");
 
   const markup = data
     .map(element => {
@@ -63,10 +109,19 @@ const renderInfo = data => {
   <p>Languages:<span>${languages}</span></p>`;
     })
     .join("");
-  info.insertAdjacentHTML("beforeend", markup);
+  modal.classList.toggle("hidden");
+  setTimeout(startConfetti, 500);
+  setTimeout(() => {
+    modal.firstElementChild.insertAdjacentHTML("beforeend", markup);
+    modal.firstElementChild.style.opacity = "1";
+  }, 1000);
 };
 const deb = debounce(event => {
   const inputValue = event.target.value.trim();
+  const pattern = /[[a-zA-Z]/;
+
+  if (inputValue === "") return;
+
   fetchCountries(`${inputValue}`)
     .then(data => {
       if (data.length < 11 && data.length >= 2) return renderList(data);
@@ -77,10 +132,14 @@ const deb = debounce(event => {
     })
     .catch(error => {
       clearList();
-      console.error(error);
+      if (!pattern.test(input.value)) {
+        return Notiflix.Notify.info("The value should contain only letters");
+      }
       Notiflix.Notify.failure("Oops, there is no country with that name");
     });
 }, DEBOUNCE_DELAY);
 
 input.addEventListener("input", deb);
 changeBorderList();
+modal.addEventListener("click", modalClick);
+document.addEventListener("keydown", modalKeydown);

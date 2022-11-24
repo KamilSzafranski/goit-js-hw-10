@@ -57,13 +57,13 @@ body {
   gap: 20px;
 }
 
-.country-info p {
+.modal p {
   margin-right: 8px;
   font-size: 18px;
   font-weight: 700;
 }
 
-.country-info span {
+.modal span {
   display: inline-block;
   margin-left: 15px;
   font-weight: 400;
@@ -85,4 +85,29 @@ span.flag--Big {
 .title {
   display: flex;
   align-content: center;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-window {
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
 }

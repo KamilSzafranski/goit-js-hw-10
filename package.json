@@ -18,6 +18,7 @@
     "url": "https://github.com/kamilszafranski/goit-js-hw-10/issues"
   },
   "dependencies": {
+    "canvas-confetti": "^1.6.0",
     "lodash.debounce": "^4.0.8",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.5"
