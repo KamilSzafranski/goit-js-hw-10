@@ -129,9 +129,9 @@ const renderInfo = data => {
 };
 const deb = debounce(event => {
   const inputValue = event.target.value.trim();
-  const pattern = /[[a-zA-Z]/;
+  const pattern = /[a-zA-Z]/;
 
-  if (inputValue === "") return;
+  if (inputValue === "") return clearList();
 
   fetchCountries(`${inputValue}`)
     .then(data => {

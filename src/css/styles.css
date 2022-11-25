@@ -111,3 +111,13 @@ span.flag--Big {
   pointer-events: none;
   opacity: 0;
 }
+
+@media screen and (max-width: 767px) {
+  #search-box {
+    width: 250px;
+  }
+
+  .country-list {
+    max-width: 250px;
+  }
+}
