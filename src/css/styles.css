@@ -114,10 +114,10 @@ span.flag--Big {
 
 @media screen and (max-width: 767px) {
   #search-box {
-    width: 250px;
+    width: 50%;
   }
 
   .country-list {
-    max-width: 250px;
+    max-width: 50%;
   }
 }
